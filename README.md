@@ -28,16 +28,16 @@ Image Docker Run with Postgres 12.6
 
 ### Examples usage routes <a name = "routes"></a>
 
-*** On route: localhost:3333/encurtador ***
+***On route: localhost:3333/encurtador***
   **request:** 
-    ```
+    
     {
       "url": "https://wisereducacao.com/"
     }
-    ```
+    
 
   **response**
-    ```
+    
     {
       "shorten_url": 
       {
@@ -46,19 +46,19 @@ Image Docker Run with Postgres 12.6
         "id": "519c079a-3dbb-4d87-a7ee-d7ee6f388cab"
       }
     }
-    ```
+    
   
-*** On route: localhost:3333/pegar_url_original ***
+***On route: localhost:3333/pegar_url_original***
   **request:** 
-    ```
+    
     {
       "url": "Lfd54"
     }
-    ```
+    
 
   **response**
-    ```
+    
     {
       "origin_url": "https://wisereducacao.com/"
     }
-    ```
+    
