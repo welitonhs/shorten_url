@@ -3,6 +3,6 @@ import shortenURLsRouter from './shortenurls.routes';
 
 const routes = Router();
 
-routes.use('/encurtador', shortenURLsRouter);
+routes.use('/', shortenURLsRouter);
 
 export default routes;

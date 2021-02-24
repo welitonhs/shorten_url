@@ -1,7 +1,6 @@
 import { EntityRepository, Repository } from 'typeorm';
 
 import ShortenURLs from '../models/ShortenURLs';
-
 @EntityRepository(ShortenURLs)
 class ShortenURLsRepository extends Repository<ShortenURLs> {
   public async findKeyShortenURL(key: string): Promise<ShortenURLs | null> {

@@ -15,7 +15,7 @@ class CreateShortenURLService {
     const aKeyShortenUrl = this.getKey();
     const keyShortenUrlExists = await shortenURLsRepository.findKeyShortenURL(aKeyShortenUrl);
     if (keyShortenUrlExists) {
-      this.execute({ urlOrigin });
+      throw new Error("Try again!");
     }
     const shortenURL = shortenURLsRepository.create({
       urlOrigin,
