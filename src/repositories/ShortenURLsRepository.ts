@@ -1,28 +1,15 @@
+import { EntityRepository, Repository } from 'typeorm';
+
 import ShortenURLs from '../models/ShortenURLs';
 
-interface CreateShortenURLDTO {
-  urlOrigin: string;
-  keyShortenURL: string
-}
-
-class ShortenURLsRepository {
-  private shortenURLs: ShortenURLs[];
-
-  constructor() {
-    this.shortenURLs = [];
-  }
-
-  public create({ urlOrigin, keyShortenURL }: CreateShortenURLDTO): ShortenURLs {
-    const aShortenUrl = new ShortenURLs({ urlOrigin, keyShortenURL });
-    this.shortenURLs.push(aShortenUrl);
-
-    console.table(this.shortenURLs);
-
-    return aShortenUrl;
-  }
-
-  public findKeyShortenURL(key: string): ShortenURLs | null {
-    const findUrl = this.shortenURLs.find(url => url.keyShortenURL === key);
+@EntityRepository(ShortenURLs)
+class ShortenURLsRepository extends Repository<ShortenURLs> {
+  public async findKeyShortenURL(key: string): Promise<ShortenURLs | null> {
+    const findUrl = await this.findOne({
+      where: {
+        keyShortenURL: key
+      }
+    });
     return findUrl || null;
   }
 }

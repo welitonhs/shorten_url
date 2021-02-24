@@ -1,4 +1,5 @@
 import { Chance } from 'chance';
+import { getCustomRepository } from 'typeorm';
 
 import ShortenURLs from '../models/ShortenURLs';
 import ShortenURLsRepository from '../repositories/ShortenURLsRepository';
@@ -9,25 +10,18 @@ interface RequestDTO {
 }
 
 class CreateShortenURLService {
-  private shortenURLsRepository: ShortenURLsRepository;
-
-  constructor(shortenURLsRepository: ShortenURLsRepository) {
-    this.shortenURLsRepository = shortenURLsRepository;
-  }
-
-  public execute({ urlOrigin }: RequestDTO): ShortenURLs {
+  public async execute({ urlOrigin }: RequestDTO): Promise<ShortenURLs> {
+    const shortenURLsRepository = getCustomRepository(ShortenURLsRepository);
     const aKeyShortenUrl = this.getKey();
-    const keyShortenUrlExists = this.shortenURLsRepository.findKeyShortenURL(aKeyShortenUrl);
-
+    const keyShortenUrlExists = await shortenURLsRepository.findKeyShortenURL(aKeyShortenUrl);
     if (keyShortenUrlExists) {
       this.execute({ urlOrigin });
     }
-
-    const shortenURL = this.shortenURLsRepository.create({
+    const shortenURL = shortenURLsRepository.create({
       urlOrigin,
       keyShortenURL: aKeyShortenUrl
     });
-
+    await shortenURLsRepository.save(shortenURL);
     return shortenURL;
   }
 
